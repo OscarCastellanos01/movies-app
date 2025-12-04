@@ -1,0 +1,12 @@
+import { MovieDBMvoiesResponse } from '@/infrastructure/interfaces/moviedb-response';
+import { movieApi } from '../../api/movie-api';
+export const nowPlayingAction = async() => {
+    try {
+        const { data } = await movieApi.get<MovieDBMvoiesResponse>("/now_playing");
+            console.log(JSON.stringify(data,null,2));
+        return []
+    } catch (error) {
+        console.log(error);
+        throw 'Cannot load now playing movies.'
+    }
+}
