@@ -15,3 +15,10 @@ export interface CompleteMovie extends Movie {
     originalTitle: string;
     productionCompanies: string[];
 }
+
+export interface CastMovie {
+    id: number;
+    name: string;
+    character: string;
+    avatar: string;
+}
