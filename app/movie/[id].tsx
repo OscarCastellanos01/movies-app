@@ -1,18 +1,26 @@
-import { getMovieByIdAction } from '@/core/actions/movies/get-movie-by-id.action';
+import { useMovie } from '@/presentation/hooks/useMovie';
 import { useLocalSearchParams } from 'expo-router';
-import { Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 
 const MovieScreen = () => {
 
-    const { id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
+  const { movieQuery } = useMovie(+id);
 
-    getMovieByIdAction(+id);
+  if ( movieQuery.isLoading ) {
+    return (
+      <View className="flex flex-1 justify-center items-center">
+        <Text className='mb-4'>Espere por favor</Text>
+        <ActivityIndicator color="purple" size={30} />
+      </View>
+    );
+  }
 
   return (
-    <View>
-      <Text>MovieScreen</Text>
-    </View>
-  )
+    <ScrollView>
+      <Text>{ movieQuery.data?.title ?? 'No tiene' }</Text>
+    </ScrollView>
+  );
 }
 
 export default MovieScreen
